@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
 
-import { getDatabase, ref, set, get } from "firebase/database";
+import { ref, get, update, set, getDatabase} from "firebase/database";
 import { database } from './firebase-config.js';
 
 
