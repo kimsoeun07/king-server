@@ -61,6 +61,7 @@ app.post("/api/seats/vote", async (req, res) => {
   }
 });
 
+
 app.get('/', (req, res) => {
   res.send('서버가 정상 작동 중입니다.');
 });
