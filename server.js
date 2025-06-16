@@ -8,17 +8,17 @@ const PORT = 5000; // 3000은 보통 프론트서버 기본 포트니까 다른 
 app.use(cors()); // 일단 모든 origin 허용
 app.use(express.json());
 
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "https://localhost:3000");
-//     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://localhost:3000");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
-app.use(cors({
-  origin: "http://localhost:3000",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-}));
+// app.use(cors({
+//   origin: "http://localhost:3000",
+//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+// }));
 
 let seatData = [];
 
