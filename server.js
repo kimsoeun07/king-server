@@ -7,7 +7,13 @@ const PORT = 5000; // 3000은 보통 프론트서버 기본 포트니까 다른 
 
 app.use(cors()); // 일단 모든 origin 허용
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '/main')));
+
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "https://petmap-five.vercel.app");
+//     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
 
 let seatData = [];
 
@@ -19,4 +25,8 @@ app.post("/api/seats/init", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+app.get('/', (req, res) => {
+  res.send('서버가 정상 작동 중입니다.');
 });
