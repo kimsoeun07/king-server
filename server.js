@@ -3,19 +3,16 @@
 // const cors = require('cors');
 import express from 'express';
 import cors from 'cors';
+import path from 'path'; // 추가 필요
+const PORT = 5000; // 3000은 보통 프론트서버 기본 포트니까 다른 포트 추천
+
 ;
 
 const app = express();
-const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/main')));
-app.use(cors({
-  origin: 'http://localhost:3000',
-  methods: ['GET', 'POST']
-}));
-
 let seatData = []; // 메모리에 좌석 저장
 
 // 좌석 초기화 API
