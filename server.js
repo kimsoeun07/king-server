@@ -11,6 +11,10 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/main')));
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST']
+}));
 
 let seatData = []; // 메모리에 좌석 저장
 
