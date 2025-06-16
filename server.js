@@ -36,7 +36,7 @@ let seatData = [];
 app.post("/api/seats/vote", async (req, res) => {
   const { seatId } = req.body;
 
-  if (typeof seatId !== "number") {
+  if (typeof seatId !== "number" || isNaN(seatId))  {
     return res.status(400).json({ error: "seatId must be a number" });
   }
 
