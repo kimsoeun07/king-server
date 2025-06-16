@@ -33,23 +33,33 @@ app.post("/api/seats/init", async (req, res) => {
 
 let seatData = [];
 
-// app.post("/api/seats/init", (req, res) => {
-//   seatData = req.body;
-//   console.log("초기 좌석 데이터:", seatData);
+app.post("/api/seats/vote", async (req, res) => {
+  const { seatId } = req.body;
 
-//   // JSON 파일로 저장
-//   fs.writeFile('seats.json', JSON.stringify(seatData, null, 2), (err) => {
-//     if (err) {
-//       console.error("파일 저장 오류:", err);
-//       return res.status(500).json({ message: "파일 저장 중 오류가 발생했습니다." });
-//     }
+  if (typeof seatId !== "number") {
+    return res.status(400).json({ error: "seatId must be a number" });
+  }
 
-//   })
+  const seatRef = ref(database, `seats/${seatId}`);
 
+  try {
+    const snapshot = await get(seatRef);
 
-  
-//   res.json({ message: "좌석이 초기화되었습니다." });
-// });
+    if (!snapshot.exists()) {
+      return res.status(404).json({ error: "Seat not found" });
+    }
+
+    const seatData = snapshot.val();
+    const updatedSelect = (seatData.select || 0) + 1;
+
+    await update(seatRef, { select: updatedSelect });
+
+    return res.json({ message: "투표 완료", updatedSelect });
+  } catch (error) {
+    console.error("투표 처리 실패:", error);
+    return res.status(500).json({ error: "서버 오류" });
+  }
+});
 
 app.get('/', (req, res) => {
   res.send('서버가 정상 작동 중입니다.');
